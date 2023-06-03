@@ -7,6 +7,7 @@ import {useCallback, useEffect} from "react";
 const products = [
     {id: '1', title: 'Джинсы', price: 5000, description: 'Массаж спины'},
     {id: '2', title: 'Куртка', price: 12000, description: 'Массаж ступней'},
+ 
 ]
 
 const getTotalPrice = (items = []) => {
@@ -23,9 +24,15 @@ const ProductList = () => {
         const data = {
             products: addedItems,
             totalPrice: getTotalPrice(addedItems),
-            queryId
+            queryId,
         }
-        tg.sendData(JSON.stringify(data))
+        fetch('http://85.119.146.179:8000/web-data', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data)
+        })
     }, [addedItems])
 
     useEffect(() => {
