@@ -1,26 +1,42 @@
-import React from 'react';
+import React, { useState } from "react";
 import Button from "../Button/Button";
-import './ProductItem.css';
+import "./ProductItem.css";
+import ProductItemInfo from "./ProductItemInfo";
 
-const ProductItem = ({product, className, onAdd}) => {
+const ProductItem = ({ product, className, onAdd }) => {
+  const onAddHandler = () => {
+    onAdd(product);
+  };
+  const [btnState, setBtnState] = useState(false);
 
-    const onAddHandler = () => {
-        onAdd(product);
-    }
+  //toggle the Modal Display State
+  const handleBtnClick = (e) => {
+    setBtnState((prev) => !prev);
+  };
 
-    return (
-        <div className={'product ' + className}>
-            <div className={'img'}/>
-            <div className={'title'}>{product.title}</div>
-            <div className={'description'}>{product.description}</div>
-            <div className={'price'}>
-                <span>Стоимость: <b>{product.price}</b></span>
+  return (
+    <div className={"product " + className}>
+      <div className={"bordera"} onClick={(e) => handleBtnClick(e)}>
+        {btnState && <ProductItemInfo product={product} />}
+        {!btnState && (
+          <>
+            <div className={"img"} />
+            <div className={"title"}>{product.title}</div>
+            <div className={"description"}>{product.description}</div>
+            <div className={"price"}>
+              <span>
+                Стоимость: <b>{product.price}</b>
+              </span>
             </div>
-            <Button className={'add-btn'} onClick={onAddHandler}>
-                Добавить в корзину
+
+            <Button className={"add-btn"} onClick={onAddHandler}>
+              Добавить в корзину
             </Button>
-        </div>
-    );
+          </>
+        )}
+      </div>
+    </div>
+  );
 };
 
 export default ProductItem;
