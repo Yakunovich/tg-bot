@@ -3,12 +3,9 @@ import './ProductList.css';
 import ProductItem from "../ProductItem/ProductItem";
 import {useTelegram} from "../../hooks/useTelegram";
 import {useCallback, useEffect} from "react";
+import {products} from "../../api/ProductList"
 
-const products = [
-    {id: '1', title: 'Джинсы', price: 5000, description: 'Массаж спины'},
-    {id: '2', title: 'Куртка', price: 12000, description: 'Массаж ступней'},
- 
-]
+
 
 const getTotalPrice = (items = []) => {
     return items.reduce((acc, item) => {
