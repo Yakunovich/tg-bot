@@ -13,11 +13,7 @@ const Header = () => {
     <div className={"header"}>
       <Button onClick={onClose}>Закрыть</Button>
       <Button onClick={() => navigate(-1)}>Go back</Button>
-      <Button onClick={() => navigate(1)}>Go forward</Button>
-      <span className={"username"}>{user?.username}</span>
-      <div>
-        <Link to="/form">Form</Link>
-      </div>
+      <Button onClick={() => navigate(1)}>Go forward</Button>     
     </div>
   );
 };
