@@ -2,12 +2,13 @@ import React from "react";
 import Button from "../Button/Button";
 import "./ProductItemInfo.css";
 import {products} from "../../api/ProductList"
-import { useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 
-const ProductItemInfo = () => {
+const ProductItemInfo = (onAdd) => {
+  const location = useLocation();
 
   let {id} = useParams();
-  const product = products[id];
+  const product = products[id-1];
 
   const onAddHandler = () => {
     onAdd(product);

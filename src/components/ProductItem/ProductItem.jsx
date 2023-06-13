@@ -22,7 +22,7 @@ const ProductItem = ({ product, className, onAdd }) => {
         {!btnState && (
           <> */}
             <div className={"img"} />
-            <div className={"title"}><Link to={'massage/' + product.id}>{product.title}</Link></div>
+            <div className={"title"}><Link to={'massage/' + product.id} onAdd = {onAdd}>{product.title}</Link></div>
             <div className={"description"}>{product.description}</div>
             <div className={"price"}>
               <span>
