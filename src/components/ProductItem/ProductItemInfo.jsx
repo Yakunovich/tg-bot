@@ -1,18 +1,13 @@
 import React from "react";
 import Button from "../Button/Button";
 import "./ProductItemInfo.css";
-import {products} from "../../api/ProductList"
+import { products } from "../../api/ProductList";
 import { useLocation, useParams } from "react-router-dom";
 
-const ProductItemInfo = (onAdd) => {
-  const location = useLocation();
+const ProductItemInfo = (props) => {
 
-  let {id} = useParams();
-  const product = products[id-1];
-
-  const onAddHandler = () => {
-    onAdd(product);
-  };
+  let { id } = useParams();
+  const product = products[id - 1];
 
   return (
     <div className={"productInfo"}>
@@ -24,7 +19,7 @@ const ProductItemInfo = (onAdd) => {
           Стоимость: <b>{product.price}</b>
         </span>
       </div>
-      <Button className={"add-btn"} onClick={onAddHandler}>
+      <Button className={"add-btn"} /*>onClick={}*/>
         Добавить в корзину
       </Button>
     </div>
