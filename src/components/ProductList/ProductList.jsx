@@ -18,13 +18,13 @@ const ProductList = () => {
 
   const { productList } = useSelector((state) => state);
 
-  //const [addedItems, setAddedItems] = useState([]);
+  const [addedItems, setAddedItems] = useState([]);
   const { tg, queryId } = useTelegram();
 
   const onSendData = useCallback(() => {
     const data = {
-      products: productList,
-      totalPrice: getTotalPrice(productList),
+      products: addedItems,
+      totalPrice: getTotalPrice(addedItems),
       queryId,
     };
     fetch("http://localhost:8000/web-data", {
@@ -34,7 +34,7 @@ const ProductList = () => {
       },
       body: JSON.stringify(data),
     });
-  }, [productList]);
+  }, [addedItems]);
 
   useEffect(() => {
     tg.onEvent("mainButtonClicked", onSendData);
@@ -44,25 +44,23 @@ const ProductList = () => {
   }, [onSendData]);
 
   const onAdd = (product) => {
-    // const alreadyAdded = addedItems.find((item) => item.id === product.id);
-    // let newItems = [];
+    const alreadyAdded = addedItems.find((item) => item.id === product.id);
+    let newItems = [];
 
-    // if (alreadyAdded) {
-    //   newItems = addedItems.filter((item) => item.id !== product.id);
-    // } else {
-    //   newItems = [...addedItems, product];
-    // }
-
+    if (alreadyAdded) {
+      newItems = addedItems.filter((item) => item.id !== product.id);
+    } else {
+      newItems = [...addedItems, product];
+    }
+    setAddedItems(newItems)
+    console.log(getTotalPrice(addedItems))
     dispatch(actions.addToList(product));
-    dispatch(actions.getTotalPrice());
-    //setAddedItems(newItems);
-
-    if (productList .length === 0) {
+    if (addedItems .length === 0) {
       tg.MainButton.hide();
     } else {
       tg.MainButton.show();
       tg.MainButton.setParams({
-        text: `Купить ${getTotalPrice(productList)}`,
+        text: `Купить ${getTotalPrice(addedItems)}`,
       });
     }
   };
